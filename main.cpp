@@ -13,17 +13,30 @@
 int main()
 {
 	std::cout << "Hello World!\n";
+
 	glfwInit();
 
 	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API); // 不创建OpenGL上下文
 	GLFWwindow* window = glfwCreateWindow(800, 600, "Vulkan", nullptr, nullptr); // 创建窗口
+
+	uint32_t extensionCount = 0; // 扩展数量
+	vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr); // 获取扩展数量
+
+	printf("Extension count : %i\n", extensionCount); // 打印扩展数量
+
+	glm::mat4 testMatrix(1.0f); // 创建矩阵
+	glm::vec4 testVector(1.0f); // 创建向量
+
+	auto testResult = testMatrix * testVector; // 矩阵乘向量
 
 	while (!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents(); // 处理窗口事件，检查是否按下了什么东西，例如窗口上的x
 	}
 
-	glfwDestroyWindow(window);
+	glfwDestroyWindow(window); // 销毁窗口
+
+	glfwTerminate(); // 终止GLFW
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
